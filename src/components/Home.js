@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../assets/nivelics.svg';
+import logo from '../assets/images/nivelics.svg';
 import Login from './Login';
 
 class Home extends Component {
