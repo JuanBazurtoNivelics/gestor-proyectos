@@ -9,7 +9,7 @@ const App =()=>{
     return(
     <BrowserRouter>
         <Routes>
-            <Route  path = "/LogIn" element = {<Login/>}></Route>
+            <Route  path = "/" element = {<Login/>}></Route>
             <Route path = "/Dashboard" element ={<DashBoard/>}></Route>
         </Routes>
     </BrowserRouter>  )  
