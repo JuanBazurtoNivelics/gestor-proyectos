@@ -1,0 +1,28 @@
+.member-list{
+    width: 40%;
+    border: 2px solid blue;
+    float: left;
+    overflow: scroll;
+}
+.logo{
+    margin: 0px 50px 50px 800px;
+    border: 2px solid blue;
+
+}
+.button{
+    margin-top: 10%;
+    position: absolute ;
+    right: 0;
+    margin-right: 70px;
+}
+button{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    cursor: pointer;
+    color: white;
+    background-color: #454544;
+    width: 70px;
+    height: 70px;
+    border-radius: 80px;
+}
