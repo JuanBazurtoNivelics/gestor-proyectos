@@ -18,8 +18,8 @@ function Login() {
 
   const login = async (e) => {
     await auth.signInWithEmailAndPassword(user.email, user.password)
-    .then((res)=>alert('logged user'))
-    .catch((e)=>alert('Incorrect username or password'))
+    .then((res)=>{window.location.href="./Dashboard"})
+    .catch((e)=>{alert("Usuario o contraseña incorrectos")})
   };
 
   return (
