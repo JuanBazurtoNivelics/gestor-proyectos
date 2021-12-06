@@ -1,11 +1,14 @@
 import React from 'react'
-
+import Home from '../components/Home'
 
 const Login = ()=>{
 
 
     return (
-        <h1>Pagina Login</h1>
+        
+        <React.Fragment>
+            <Home/>
+        </React.Fragment>
     )
 
 

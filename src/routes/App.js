@@ -13,8 +13,8 @@ const App =()=>{
     <AppContext.Provider value ={initialState}>
     <BrowserRouter>
         <Routes>
-            <Route  path = "/LogIn" element = {<Login/>}></Route>
-            <Route path = "/Dashboard" element ={<DashBoard/>}></Route>
+            <Route  path = "/" element = {<Login/>}/>
+            <Route path = "/Dashboard" element ={<DashBoard/>}/>
         </Routes>
     </BrowserRouter>
     </AppContext.Provider>  )  
