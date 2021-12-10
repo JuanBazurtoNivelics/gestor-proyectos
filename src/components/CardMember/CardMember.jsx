@@ -1,11 +1,12 @@
 import React from 'react'
 import './style.css'
 import profile  from '../../assets/images/profile.png'
+import Gantt from '../../components/Gantt'
 
 export const CardMember = ({developer})=>{
     const profileImage = profile;
     const showGarphic = ()=>{
-        console.log("Grafico")
+        return <Gantt/>
     }   
     return (
         <div className = "card-member" onClick = {showGarphic}  >

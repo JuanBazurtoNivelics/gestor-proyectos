@@ -6,6 +6,11 @@
     "@babel/core": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
+    "@syncfusion/ej2-gantt": "^19.3.57",
+    "@syncfusion/ej2-grids": "^19.3.57",
+    "@syncfusion/ej2-layouts": "^19.3.53",
+    "@syncfusion/ej2-react-gantt": "^19.3.57",
+    "@syncfusion/ej2-treegrid": "^19.3.57",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -16,9 +21,10 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
-    "styled-components": "^5.3.3",
     "reactfire": "^4.2.1",
+    "styled-components": "^5.3.3",
     "tslib": "^2.3.1",
+    "typescript": "^4.5.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
