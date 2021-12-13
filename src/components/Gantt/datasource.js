@@ -1,4 +1,4 @@
-const GanttData = [
+const data = [
     {
         TaskID: 1,
         TaskName: 'Project Initiation',
@@ -23,4 +23,4 @@ const GanttData = [
     },
 ];
 
-export default GanttData
+export {data};

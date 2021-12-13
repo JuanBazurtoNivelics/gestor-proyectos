@@ -7,8 +7,9 @@ import {
   Inject,
   Toolbar,
   Selection,
+  Filter
 } from "@syncfusion/ej2-react-gantt";
-import data from "./data.js";
+import {data} from "./datasource";
 import "./Gantt.css";
 
 const Gantt = () => {
@@ -35,7 +36,7 @@ const Gantt = () => {
     taskLabel: '${Progress}%'
   }
 
-  const toolbarOptions = ['Add', 'Edit', 'Delete', 'Cancel', 'Update'];
+  const toolbarOptions = ['Add', 'Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
 
   return (
     <div>
@@ -53,7 +54,7 @@ const Gantt = () => {
         labelSettings={labelValues}
         splitterSettings={{position:"40%"}}
       >
-        <Inject services={[Edit, Toolbar, Selection]} />
+        <Inject services={[Edit, Toolbar, Selection, Filter]} />
         <ColumnsDirective>
           <ColumnDirective field="TaskID" headerText="ID" textAlign="Center" />
           <ColumnDirective
