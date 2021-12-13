@@ -1,10 +1,7 @@
 import React from 'react'
 import './style.css'
-const FormModal =({children,modalState,changeState})=>{
-    const handleState = ()=>{
-        console.log('cerrar')
-        changeState = !modalState
-    }
+const FormModal =({children,modalState,setState})=>{
+   
     return (
         <div>
             {modalState &&
@@ -13,7 +10,7 @@ const FormModal =({children,modalState,changeState})=>{
                         <div className = "modal-header">
                             <h3>Agregar nuevo desarrollador</h3>
                         </div>
-                        <button className = "close-button" onClick = {handleState()}>X
+                        <button className = "close-button" onClick = {()=>setState(false)}>X
                         </button>
                         {children}
                 </div>

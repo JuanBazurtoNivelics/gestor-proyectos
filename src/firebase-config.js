@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-
+import { getFirestore } from "firebase/firestore" 
 const firebaseConfig = {
   apiKey: "AIzaSyAcsaGac0Ugq_ELseEySSG-ibAjptikqBU",
   authDomain: "gestor-proyectos-nivelics.firebaseapp.com",
@@ -13,5 +13,6 @@ const firebaseConfig = {
 
 const fire = firebase.initializeApp(firebaseConfig);
 const auth = fire.auth();
+const db = getFirestore(fire)
 
-export { auth };
+export { auth ,db};
