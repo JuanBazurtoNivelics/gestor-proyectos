@@ -20,7 +20,7 @@ const Gantt = () => {
     console.log(selectedDeveloper)
   }, [])
 
-  const editOptions = {
+   const editOptions = {
     allowEditing: true,
     allowAdding: true,
     allowDeleting: true,
@@ -44,6 +44,7 @@ const Gantt = () => {
   }
 
   const toolbarOptions = ['Add', 'Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
+
   return (
     <div>
       <GanttComponent
