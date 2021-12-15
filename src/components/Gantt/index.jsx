@@ -17,8 +17,12 @@ import userContext from "../../context/userContext";
 const Gantt = () => {
   const {selectedDeveloper} = useContext(userContext)
   useEffect(() => {
-    console.log(selectedDeveloper)
+    console.log(selectedDeveloper.projects)
   }, [])
+  let projects = Object.values(selectedDeveloper.projects)
+  console.log(projects,'Lista de proyectos')
+  console.log(data,'Data')
+
 
    const editOptions = {
     allowEditing: true,
