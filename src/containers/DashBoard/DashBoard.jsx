@@ -7,23 +7,18 @@ import './style.css'
 import { collection, getDocs,addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import FormModal from '../../components/FormModal/FormModal';
+import { useContext } from 'react';
+import userContext from '../../context/userContext';
 
 
 
 const DashBoard=()=>{
-    const [developers,setDevelopersState] = useState([])
+    const {developers,getDevelopers} = useContext(userContext)
+
     useEffect(() => {
-        getData()
+        getDevelopers()
     }, [])
-    const getData =async ()=>{
-        let developersList = []
-        const state = await getDocs(collection(db,'developers'))
-        state.forEach((developer)=>{
-            console.log(developer.data())
-            developersList.push(developer.data())
-        })
-        setDevelopersState(developersList)
-    }
+  
     const [modalState,setState] = useState();
     const [form,setForm] = useState({})
     const handleChange = e =>{
@@ -34,7 +29,6 @@ const DashBoard=()=>{
     }
     const handleSubmit =async  (e)=>{
         e.preventDefault();
-        getData()
         try {
             const docRef = await addDoc(collection(db, "developers"), {
                 Cargo: form.Post,
@@ -72,8 +66,7 @@ const DashBoard=()=>{
             
             (
                 <CardMember  key = {index} developer = {developer} className = "card">
-                    {console.log(developer)+'lista a renderizarzzz'}
-                        <h1>{developer.name} asdfasdf</h1>
+                        <h1>{developer.name}</h1>
                     </CardMember>
                  ))}
             </div>

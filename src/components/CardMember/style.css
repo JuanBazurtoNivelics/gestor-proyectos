@@ -15,10 +15,11 @@
     display: inline-block;
     border-radius: 10px;
 }
-.data{
+.data {
+    background-color: red;
     max-width: 200px;
     height: 100px;
     margin-left: 0px;
-    float: right;
+    
     margin-right: 20%;
 }
