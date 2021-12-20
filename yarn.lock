@@ -2171,12 +2171,26 @@
   dependencies:
     "@syncfusion/ej2-icons" "~19.3.53"
 
+"@syncfusion/ej2-base@~19.4.38":
+  "integrity" "sha512-gtBlbeLcYcpNgMfm6czhLWqYF77kVNiOC5Isw72pVyEE58wS1D/cvF3jqgfBCY4Egi58pRod+zXUmXh2d6rV8Q=="
+  "resolved" "https://registry.npmjs.org/@syncfusion/ej2-base/-/ej2-base-19.4.38.tgz"
+  "version" "19.4.38"
+  dependencies:
+    "@syncfusion/ej2-icons" "~19.4.38"
+
 "@syncfusion/ej2-buttons@~19.3.53":
   "integrity" "sha512-abWqinbJL7nftz6alzvvyQRH/LOM6rDUwQ9ZY9CnPga6OkKfe57XGwt1rn6F/LsjgtLVxmykIPSdKlJBe8Q/vQ=="
   "resolved" "https://registry.npmjs.org/@syncfusion/ej2-buttons/-/ej2-buttons-19.3.53.tgz"
   "version" "19.3.53"
   dependencies:
     "@syncfusion/ej2-base" "~19.3.53"
+
+"@syncfusion/ej2-buttons@19.4.38":
+  "integrity" "sha512-iMI78xDZOOPVbsVjMaz2YA9gH3ZXGDir5sRTDnpj4+XBEq1rx8NWTXgq0m7pNXpWQGp2qj+BZb749+Z9/FvUIA=="
+  "resolved" "https://registry.npmjs.org/@syncfusion/ej2-buttons/-/ej2-buttons-19.4.38.tgz"
+  "version" "19.4.38"
+  dependencies:
+    "@syncfusion/ej2-base" "~19.4.38"
 
 "@syncfusion/ej2-calendars@~19.3.56":
   "integrity" "sha512-XJj4Bl6hl3M5e+VAMOh5/JM3uR1C6v2unCl3JuHk+lCV+WLWcaboBC3XB2ZsZ0Sni2snSi25+yk8K3Ia9LiY5g=="
@@ -2289,6 +2303,11 @@
   "resolved" "https://registry.npmjs.org/@syncfusion/ej2-icons/-/ej2-icons-19.3.53.tgz"
   "version" "19.3.53"
 
+"@syncfusion/ej2-icons@~19.4.38":
+  "integrity" "sha512-7Uy1A76BkDBANdJpgxBRExrcYcz5YULhck9sYKqX4upAhdCubvcQzQslW+bKt0TZra4GLvC+iMG0rRMDzZQuxA=="
+  "resolved" "https://registry.npmjs.org/@syncfusion/ej2-icons/-/ej2-icons-19.4.38.tgz"
+  "version" "19.4.38"
+
 "@syncfusion/ej2-inputs@~19.3.53", "@syncfusion/ej2-inputs@~19.3.57":
   "integrity" "sha512-CTISfVXMQ9kqICmKYsTt8gAharyBa1RKGJw5Vy3dfa6jzYnzCrd3LCC5xSGXXnoi1Jni0cJfADYqwRdwoBPuIQ=="
   "resolved" "https://registry.npmjs.org/@syncfusion/ej2-inputs/-/ej2-inputs-19.3.57.tgz"
@@ -2348,6 +2367,22 @@
   "version" "19.3.57"
   dependencies:
     "@syncfusion/ej2-base" "~19.3.56"
+
+"@syncfusion/ej2-react-base@~19.4.38":
+  "integrity" "sha512-ev+RsHFQ51IXrOFsxNAixFmnRWWGZED4iezrhihCHlFbPF6F/0I7BGKvo+N0alxsV7O+vBiCdAi0d+gFwgWxdA=="
+  "resolved" "https://registry.npmjs.org/@syncfusion/ej2-react-base/-/ej2-react-base-19.4.38.tgz"
+  "version" "19.4.38"
+  dependencies:
+    "@syncfusion/ej2-base" "~19.4.38"
+
+"@syncfusion/ej2-react-buttons@^19.4.38":
+  "integrity" "sha512-062iN/aEwm/3bS0Rfi2I0hThPfYSn+JMveOnaHxDErPZ4BUWeOU09MkAXgyc70/ACRzzHpWn+vtpurp6AX1rjw=="
+  "resolved" "https://registry.npmjs.org/@syncfusion/ej2-react-buttons/-/ej2-react-buttons-19.4.38.tgz"
+  "version" "19.4.38"
+  dependencies:
+    "@syncfusion/ej2-base" "~19.4.38"
+    "@syncfusion/ej2-buttons" "19.4.38"
+    "@syncfusion/ej2-react-base" "~19.4.38"
 
 "@syncfusion/ej2-react-gantt@^19.3.57":
   "integrity" "sha512-H1exa35lDPpI/KOJQRNjMFQGIZTiT/zqYKAhXN9A5VcZBocM3hLV9r2ZXGsLGcz0/STuFnyTht8QqljpsNdxHA=="
