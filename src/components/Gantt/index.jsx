@@ -9,19 +9,44 @@ import {
   Selection,
   Filter
 } from "@syncfusion/ej2-react-gantt";
-import {data} from "./datasource";
 import "./Gantt.css"
-import { useContext,useEffect } from "react";
+import { useContext } from "react";
 import userContext from "../../context/userContext";
 
 const Gantt = () => {
   const {selectedDeveloper} = useContext(userContext)
-  useEffect(() => {
-    console.log(selectedDeveloper.projects)
-  }, [])
-  let projects = Object.values(selectedDeveloper.projects)
-  console.log(projects,'Lista de proyectos')
-  console.log(data,'Data')
+  console.log(selectedDeveloper,'desarrollador seleccionando')
+  
+   const dataBase = [ ]
+  const projects = Object.values(selectedDeveloper.projects)
+  projects.forEach(element => {
+    let countTask = 0;
+    let tasks = Object.values(element.tasks)
+    let finalTasks = []
+    tasks.forEach(task=>{
+      const newTask = {
+        TaskID:1,
+        TaskName: task.taskName,
+        StartDate:new Date(task.startDate*1000),
+        Duration:task.duration,
+        Progress:task.progress,
+      }
+      finalTasks.push(newTask)
+    })
+    console.log(finalTasks,'lista final de tareas')
+    countTask++
+    dataBase.push(
+      {   
+          TaskID: countTask,
+          TaskName: element.projectName,
+          StartDate: new Date(element.startDate * 1000),
+          EndDate: new Date(element.endDate*1000),
+          subtasks:finalTasks
+
+     }
+    )
+  });
+  console.log(dataBase,'asdfasd')
 
 
    const editOptions = {
@@ -52,7 +77,7 @@ const Gantt = () => {
   return (
     <div>
       <GanttComponent
-        dataSource={data}
+        dataSource={dataBase}
         taskFields={taskValues}
         toolbar={toolbarOptions}
         height="550px"

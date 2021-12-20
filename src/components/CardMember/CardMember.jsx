@@ -9,7 +9,7 @@ export const CardMember = ({developer})=>{
     const {getProfile} = useContext(userContext)
     useEffect(() => {
         getProfile(developer)
-    }, [])
+    }, [developer])
     
     return (
         <div className = "card-member"   >
@@ -17,13 +17,13 @@ export const CardMember = ({developer})=>{
                  <img src={profileImage} width = "100px" height = "100px" alt = "Imagen perfil"></img>
             </div>
             <div className = "data" >
-                    <Link to = {`/Gantt`}>
                 <ul>
+                    <Link to = {`/Gantt`}>
                     <li>{developer.name}</li>
                     <li>{developer.phone}</li>
+                     </Link>
 
                 </ul>
-                     </Link>
             </div>
         </div>
                 

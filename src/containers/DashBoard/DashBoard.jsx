@@ -35,7 +35,8 @@ const DashBoard=()=>{
                 email:form.Email,
                 name:form.Name,
                 phone:parseInt(form.Phone),
-                Area: form.Area
+                Area: form.Area,
+                Projects:[]
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
@@ -71,7 +72,6 @@ const DashBoard=()=>{
                  ))}
             </div>
             <div className = "logo">
-                <img src={logo} alt="logo" width= "500px" />
                 <div className = "button">
                     <button type = "button" onClick={()=>setState(true)}>+</button>
                 </div>

@@ -1,12 +1,14 @@
- .member-list{
+  .member-list{
     width: 40%;
     float: left;
     overflow: scroll;
 }
+/*
 .logo{
     margin: 0px 50px 50px 800px;
 
 }
+*/
 .button{
     margin-top: 10%;
     position: absolute ;
@@ -37,6 +39,7 @@ input{
     margin-bottom: 20px;
     border-radius: 4px;
 }
+
 input:focus{
     border: 1px solid #1f53c5;
 }
@@ -45,4 +48,4 @@ input:focus{
     width: 40%;
     height: 40px;
     margin-left: 30%;
-} 
+}  
