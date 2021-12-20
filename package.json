@@ -9,6 +9,7 @@
     "@syncfusion/ej2-gantt": "^19.3.57",
     "@syncfusion/ej2-grids": "^19.3.57",
     "@syncfusion/ej2-layouts": "^19.3.53",
+    "@syncfusion/ej2-react-buttons": "^19.4.38",
     "@syncfusion/ej2-react-gantt": "^19.3.57",
     "@syncfusion/ej2-treegrid": "^19.3.57",
     "@testing-library/jest-dom": "^5.11.4",

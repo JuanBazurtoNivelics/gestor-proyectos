@@ -15,7 +15,6 @@ import userContext from "../../context/userContext";
 
 const Gantt = () => {
   const {selectedDeveloper} = useContext(userContext)
-  console.log(selectedDeveloper,'desarrollador seleccionando')
   
    const dataBase = [ ]
   const projects = Object.values(selectedDeveloper.projects)
