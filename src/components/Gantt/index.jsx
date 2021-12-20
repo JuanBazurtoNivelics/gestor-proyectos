@@ -43,7 +43,7 @@ class GanttDiagram extends Component {
 
   this.toolbarOptions = ['Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
   }
-  clickHandler= () => {
+  addProject= () => {
     let dataProject = {
         TaskName: 'New Added Project',
         StartDate: new Date(),
@@ -54,7 +54,7 @@ class GanttDiagram extends Component {
     this.ganttInstance.editModule.addRecord(dataProject);
     this.ganttInstance.editModule.dialogModule.openEditDialog();
 }
-clickHandlerTask= () => {
+addTask= () => {
   
   let dataTask = {
     TaskName: 'New Added Task', StartDate: new Date()
@@ -67,8 +67,8 @@ clickHandlerTask= () => {
 render(){
   return (
     <div>
-      <ButtonComponent onClick={this.clickHandler.bind(this)}>Add Project</ButtonComponent>
-      <ButtonComponent onClick={this.clickHandlerTask.bind(this)}>Add Task</ButtonComponent>
+      <ButtonComponent onClick={this.addProject.bind(this)}>Add Project</ButtonComponent>
+      <ButtonComponent onClick={this.addTask.bind(this)}>Add Task</ButtonComponent>
       <GanttComponent
         dataSource={data}
         taskFields={this.taskValues}
@@ -85,7 +85,7 @@ render(){
         splitterSettings={{position:"40%"}}
         workWeek={this.workWeek}
         selectedRowIndex={0}
-        ref={gantt => this.ganttInstance = gantt} 
+        ref={gantt => this.ganttInstance = gantt}
       >
         <Inject services={[RowDD, Edit, Toolbar, Selection]} />
         <ColumnsDirective>
