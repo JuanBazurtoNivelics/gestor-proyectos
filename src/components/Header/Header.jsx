@@ -11,7 +11,7 @@ const Header = ()=>{
                     <img src = {logoImg} width = "200px" alt="logo"></img>
                 </div>
 				<a className = "members" href="./">Integrantes</a>
-				<a href="./">Log Out</a>
+				<a href="./">Log Outtt</a>
 			</nav>
                     </div>
         </header>

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {
   GanttComponent,
   ColumnsDirective,
@@ -7,24 +7,55 @@ import {
   Inject,
   Toolbar,
   Selection,
-  RowDD
+  Filter
 } from "@syncfusion/ej2-react-gantt";
-import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
-import { data } from "./datasource";
-import "./Gantt.css";
+import "./Gantt.css"
+import { useContext } from "react";
+import userContext from "../../context/userContext";
+import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
-class GanttDiagram extends Component {
-  constructor(){
-    super(...arguments);
-    this.editOptions = {
+const Gantt = () => {
+  const {selectedDeveloper} = useContext(userContext)
+   let ganttInstance = GanttComponent;
+
+  const editOptions = {
     allowEditing: true,
     allowAdding: true,
     allowDeleting: true,
-    showDeleteConfirmDialog: true,
     mode: "Auto",
     allowTaskbarEditing: true,
   };
-  this.taskValues = {
+   const dataBase = [ ]
+  const projects = Object.values(selectedDeveloper.projects)
+  projects.forEach(element => {
+    let countTask = 0;
+    let tasks = Object.values(element.tasks)
+    let finalTasks = []
+    tasks.forEach(task=>{
+      const newTask = {
+        TaskID:1,
+        TaskName: task.taskName,
+        StartDate:new Date(task.startDate*1000),
+        Duration:task.duration,
+        Progress:task.progress,
+      }
+      finalTasks.push(newTask)
+    })
+    console.log(finalTasks,'lista final de tareas')
+    countTask++
+    dataBase.push(
+      {   
+          TaskID: countTask,
+          TaskName: element.projectName,
+          StartDate: new Date(element.startDate * 1000),
+          EndDate: new Date(element.endDate*1000),
+          subtasks:finalTasks
+
+     }
+    )
+  });
+  console.log(dataBase,'asdfasd')
+  const taskValues = {
     id: "TaskID",
     name: "TaskName",
     startDate: "StartDate",
@@ -34,16 +65,15 @@ class GanttDiagram extends Component {
     child: "subtasks",
   };
 
-  this.workWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  const workWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
-  this.labelValues = {
+  const labelValues = {
     // eslint-disable-next-line no-template-curly-in-string
     taskLabel: '${Progress}%'
   }
-
-  this.toolbarOptions = ['Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
-  }
-  addProject= () => {
+  const toolbarOptions = ['Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
+  
+  const addProject= () => {
     let dataProject = {
         TaskName: 'New Added Project',
         StartDate: new Date(),
@@ -51,43 +81,43 @@ class GanttDiagram extends Component {
           {}
       ]
     };
-    this.ganttInstance.editModule.addRecord(dataProject);
-    this.ganttInstance.editModule.dialogModule.openEditDialog();
+    ganttInstance.editModule.addRecord(dataProject);
+    ganttInstance.editModule.dialogModule.openEditDialog();
+    // projects.push(dataProject)
+    // console.log(projects,'nueva lista de proyectos')
 }
-addTask= () => {
+const addTask= () => {
   
   let dataTask = {
     TaskName: 'New Added Task', StartDate: new Date()
   };    
   
-  this.ganttInstance.editModule.addRecord(dataTask, 'Child');
-  var id = Math.max(...this.ganttInstance.ids);
-  this.ganttInstance.editModule.dialogModule.openEditDialog(id);
+  ganttInstance.editModule.addRecord(dataTask, 'Child');
+  var id = Math.max(...ganttInstance.ids);
+  ganttInstance.editModule.dialogModule.openEditDialog(id);
 }
-render(){
   return (
     <div>
-      <ButtonComponent onClick={this.addProject.bind(this)}>Add Project</ButtonComponent>
-      <ButtonComponent onClick={this.addTask.bind(this)}>Add Task</ButtonComponent>
+      <ButtonComponent onClick={addProject.bind(this)}>Add Project</ButtonComponent>
+      <ButtonComponent onClick={addTask.bind(this)}>Add Task</ButtonComponent>
       <GanttComponent
-        dataSource={data}
-        taskFields={this.taskValues}
-        toolbar={this.toolbarOptions}
+        dataSource={dataBase}
+        taskFields={taskValues}
+        toolbar={toolbarOptions}
         height="550px"
         timelineSettings={{ timelineViewMode: "Week" }}
         gridLines='Both'
-        editSettings={this.editOptions}
+        editSettings={editOptions}
         taskMode='Auto'
         allowSelection={true}
-        allowRowDragAndDrop={true}
         rowHeight={50}
-        labelSettings={this.labelValues}
+        labelSettings={labelValues}
         splitterSettings={{position:"40%"}}
-        workWeek={this.workWeek}
+        workWeek={workWeek}
         selectedRowIndex={0}
-        ref={gantt => this.ganttInstance = gantt}
+        ref={gantt => ganttInstance = gantt}
       >
-        <Inject services={[RowDD, Edit, Toolbar, Selection]} />
+        <Inject services={[Edit, Toolbar, Selection, Filter]} />
         <ColumnsDirective>
           <ColumnDirective field="TaskID" headerText="ID" textAlign="Center" />
           <ColumnDirective
@@ -105,6 +135,5 @@ render(){
       </GanttComponent>
     </div>
   );}
-};
 
-export default GanttDiagram;
+export default Gantt;
