@@ -9,23 +9,16 @@ import {
   Selection,
   Filter
 } from "@syncfusion/ej2-react-gantt";
+import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 import "./Gantt.css"
 import { useContext } from "react";
 import userContext from "../../context/userContext";
-import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 
 const Gantt = () => {
   const {selectedDeveloper} = useContext(userContext)
-   let ganttInstance = GanttComponent;
+  let ganttInstance = GanttComponent;
 
-  const editOptions = {
-    allowEditing: true,
-    allowAdding: true,
-    allowDeleting: true,
-    mode: "Auto",
-    allowTaskbarEditing: true,
-  };
-   const dataBase = [ ]
+  const dataBase = [ ]
   const projects = Object.values(selectedDeveloper.projects)
   projects.forEach(element => {
     let countTask = 0;
@@ -41,7 +34,7 @@ const Gantt = () => {
       }
       finalTasks.push(newTask)
     })
-    console.log(finalTasks,'lista final de tareas')
+    console.log(finalTasks.length,'lista final de tareas')
     countTask++
     dataBase.push(
       {   
@@ -50,10 +43,20 @@ const Gantt = () => {
           StartDate: new Date(element.startDate * 1000),
           EndDate: new Date(element.endDate*1000),
           subtasks:finalTasks
-
      }
     )
   });
+  console.log(dataBase.length,'asdfasd')
+
+
+   const editOptions = {
+    allowEditing: true,
+    allowAdding: true,
+    allowDeleting: true,
+    mode: "Auto",
+    allowTaskbarEditing: true,
+  };
+  
   console.log(dataBase,'asdfasd')
   const taskValues = {
     id: "TaskID",
@@ -71,7 +74,6 @@ const Gantt = () => {
     // eslint-disable-next-line no-template-curly-in-string
     taskLabel: '${Progress}%'
   }
-  const toolbarOptions = ['Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
   
   const addProject= () => {
     let dataProject = {
@@ -83,8 +85,8 @@ const Gantt = () => {
     };
     ganttInstance.editModule.addRecord(dataProject);
     ganttInstance.editModule.dialogModule.openEditDialog();
-    // projects.push(dataProject)
-    // console.log(projects,'nueva lista de proyectos')
+    projects.push(dataProject)
+    console.log(projects,'nueva lista de proyectos')
 }
 const addTask= () => {
   
@@ -96,6 +98,9 @@ const addTask= () => {
   var id = Math.max(...ganttInstance.ids);
   ganttInstance.editModule.dialogModule.openEditDialog(id);
 }
+
+  const toolbarOptions = ['Add', 'Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
+
   return (
     <div>
       <ButtonComponent onClick={addProject.bind(this)}>Add Project</ButtonComponent>
@@ -134,6 +139,7 @@ const addTask= () => {
         </ColumnsDirective>
       </GanttComponent>
     </div>
-  );}
+  );
+};
 
 export default Gantt;
