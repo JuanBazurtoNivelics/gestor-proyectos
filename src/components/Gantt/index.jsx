@@ -65,6 +65,11 @@ const addTask= () => {
   var id = Math.max(...ganttInstance.ids);
   ganttInstance.editModule.dialogModule.openEditDialog(id);
 }
+
+const toolbarClickHandler = () =>{
+  console.log('Hola');
+}
+
   return (
     <div>
       <ButtonComponent onClick={addProject.bind(this)}>Add Project</ButtonComponent>
@@ -86,6 +91,7 @@ const addTask= () => {
         workWeek={workWeek}
         selectedRowIndex={0}
         ref={gantt => ganttInstance = gantt}
+        toolbarClick={toolbarClickHandler}
       >
         <Inject services={[RowDD, Edit, Toolbar, Selection]} />
         <ColumnsDirective>
