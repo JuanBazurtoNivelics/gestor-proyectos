@@ -77,6 +77,14 @@ const GanttDiagram = () => {
     }
   };
 
+  const rowDropHandler = () => {
+    console.log("Changes");
+  };
+
+  const taskbarEditedHandler = () => {
+    console.log("Changes");
+  };
+
   return (
     <div>
       <ButtonComponent onClick={addProject.bind(this)}>
@@ -101,6 +109,8 @@ const GanttDiagram = () => {
         selectedRowIndex={0}
         ref={(gantt) => (ganttInstance = gantt)}
         toolbarClick={toolbarClickHandler}
+        rowDrop={rowDropHandler}
+        taskbarEdited={taskbarEditedHandler}
       >
         <Inject services={[Filter, RowDD, Edit, Toolbar, Selection]} />
         <ColumnsDirective>
