@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from "react";
 import "./style.css";
 import profile from "../../assets/images/profile.png";
 import { Link } from "react-router-dom";
-import UserContext from "../../context/userContext";
+import UserContext from "../../context/UserContext";
+
 export const CardMember = ({ developer }) => {
   const profileImage = profile;
   const { getProfile, currentProjects } = useContext(UserContext);

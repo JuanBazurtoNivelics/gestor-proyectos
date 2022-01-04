@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
-import React, { useContext } from "react";
-import userContext from "../../context/userContext";
+import React, { useContext, useEffect } from "react";
+import UserContext from "../../context/UserContext";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import {
@@ -16,9 +16,17 @@ import {
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
 // import { data } from "./datasource";
 import "./Gantt.css";
+import { useParams } from "react-router-dom";
 
 const GanttDiagram = () => {
-  const { currentProjects, selectedDeveloper } = useContext(userContext);
+  const { currentProjects, selectedDeveloper,getProfile } = useContext(UserContext);
+  const {id} = useParams()
+  useEffect(() => {
+    getProfile(id);
+  });
+
+  console.log(currentProjects)
+
   let ganttInstance = GanttComponent;
   currentProjects.map((project) => {
     project.EndDate = new Date(project.EndDate);

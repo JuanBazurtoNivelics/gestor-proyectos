@@ -1,5 +1,5 @@
 import React from "react";
-import UserContext from "./userContext";
+import UserContext from "./UserContext";
 import UserReducer from "./UserReducer";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
