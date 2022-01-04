@@ -138,7 +138,7 @@ const GanttDiagram = () => {
     });
     const finalProyectList = [];
     projectList.forEach((project) => {
-      if (project.taskData.subtasks.length === 1) {
+      if (project?.taskData?.subtasks?.length === 1) {
         if (Object.keys(project.taskData.subtasks[0]).length === 0) {
           delete project.taskData.subtasks;
         }
