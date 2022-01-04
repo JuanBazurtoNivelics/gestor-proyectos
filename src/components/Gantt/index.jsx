@@ -1,4 +1,8 @@
-import React from "react";
+
+import React,{ useContext, useEffect } from "react";
+import userContext from "../../context/UserContext";
+import { collection, getDocs,updateDoc,doc  } from "firebase/firestore";
+import { db } from "../../firebase-config";
 import {
   GanttComponent,
   ColumnsDirective,
@@ -7,57 +11,98 @@ import {
   Inject,
   Toolbar,
   Selection,
-  Filter
+  RowDD
 } from "@syncfusion/ej2-react-gantt";
-import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import "./Gantt.css"
-import { useContext } from "react";
-import userContext from "../../context/userContext";
+import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
+import { data } from "./datasource";
+import "./Gantt.css";
+import { useParams } from "react-router-dom";
 
-const Gantt = () => {
-  const {selectedDeveloper} = useContext(userContext)
+const GanttDiagram =  () => {
+  
+  const { currentProjects,selectedDeveloper} = useContext(userContext)
   let ganttInstance = GanttComponent;
-
   const dataBase = [ ]
-  const projects = Object.values(selectedDeveloper.projects)
-  projects.forEach(element => {
-    let countTask = 0;
-    let tasks = Object.values(element.tasks)
-    let finalTasks = []
-    tasks.forEach(task=>{
-      const newTask = {
-        TaskID:1,
-        TaskName: task.taskName,
-        StartDate:new Date(task.startDate*1000),
-        Duration:task.duration,
-        Progress:task.progress,
-      }
-      finalTasks.push(newTask)
-    })
-    console.log(finalTasks.length,'lista final de tareas')
-    countTask++
-    dataBase.push(
-      {   
-          TaskID: countTask,
-          TaskName: element.projectName,
-          StartDate: new Date(element.startDate * 1000),
-          EndDate: new Date(element.endDate*1000),
-          subtasks:finalTasks
-     }
-    )
-  });
-  console.log(dataBase.length,'asdfasd')
+  const projects = currentProjects
+  // console.log(projects)
+  // projects.forEach(element => {
+  //   let countTask = 0;
+  //   let tasks = Object.values(element.tasks)
+  //   let finalTasks = []
+  //   tasks.forEach(task=>{
+  //     const newTask = {
+  //       TaskID:1,
+  //       TaskName: task.taskName,
+  //       StartDate:new Date(task.startDate*1000),
+  //       Duration:task.duration,
+  //       Progress:task.progress,
+  //     }
+  //     finalTasks.push(newTask)
+  //   })
+  //   console.log(finalTasks.length,'lista final de tareas')
+  //   countTask++
+  //   dataBase.push(
+  //     {  
+  //         TaskID: countTask,
+  //         TaskName: element.projectName,
+  //         StartDate: new Date(element.startDate * 1000),
+  //         EndDate: new Date(element.endDate*1000),
+  //         subtasks:finalTasks
+  //    }
+  //   )
+  // });
+  // console.log(dataBase.length,'asdfasd')
+
+  
+ 
+  let projectNames = [];  
+
+        projects.forEach(project => {
+         projectNames.push(project.projectName)
+      });
+
+      projects.forEach(element => {
+        // console.log('agregando proyects')
+        // let countTask = 0;
+        // let tasks = []
+        //   tasks =Object.values(element.subtasks)
+        //   let finalTasks = []
+        //   tasks.forEach(task=>{
+        //     const newTask = {
+        //       TaskID:1,
+        //       TaskName: task.taskName,
+        //       StartDate:new Date(task.startDate),
+        //       Duration:task.duration,
+        //       Progress:task.progress,
+        //     }
+        //       finalTasks.push(newTask)
+            
+        //   })
+        //   countTask++
+          dataBase.push(
+            element
+            // {   
+            //   TaskID: countTask,
+            //   TaskName: element.projectName,
+            //   StartDate: new Date(element.startDate),
+            //   EndDate: new Date(element.endDate),
+            //   subtasks:finalTasks,
+            // }
+            )
+        
+      });
+      console.log(dataBase,'Base de datos armada')
 
 
-   const editOptions = {
+      
+  const editOptions = {
     allowEditing: true,
     allowAdding: true,
     allowDeleting: true,
+    showDeleteConfirmDialog: true,
     mode: "Auto",
     allowTaskbarEditing: true,
   };
-  
-  console.log(dataBase,'asdfasd')
   const taskValues = {
     id: "TaskID",
     name: "TaskName",
@@ -74,33 +119,70 @@ const Gantt = () => {
     // eslint-disable-next-line no-template-curly-in-string
     taskLabel: '${Progress}%'
   }
+
+  const toolbarOptions = ['Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
   
-  const addProject= () => {
+  const addProject= async () => {
+    
     let dataProject = {
-        TaskName: 'New Added Project',
-        StartDate: new Date(),
-        subtasks: [
-          {}
+      TaskName: 'New Added Project',
+      StartDate: new Date(),
+      subtasks: [
+        {}
       ]
     };
     ganttInstance.editModule.addRecord(dataProject);
     ganttInstance.editModule.dialogModule.openEditDialog();
-    projects.push(dataProject)
-    console.log(projects,'nueva lista de proyectos')
+    updateGraphicData()
 }
+const updateGraphicData =async ()=>{
+  const updateData = ganttInstance.selectionModule.parent.flatData
+  let projectList = [];
+  let taskList = [];
+  console.log(updateData,'update data')
+  updateData.forEach(project => {
+    if(project.parentUniqueID !== null){
+      
+      taskList.push(project)
+    }else{
+      projectList.push(project);
+    }
+  });
+  projectList.forEach(project => {
+    let taskProject = []
+    taskList.forEach(task=>{
+      if(task.parentUniqueID === project.uniqueID ){
+        console.log('par')
+        taskProject.push(task.taskData)
+      }
+    })
+    project.subtasks = taskProject;
+  });
+  const finalProyectList = []
+  projectList.forEach(project => {
+    finalProyectList.push(project.taskData)
+  });
+    const q = await getDocs( collection(db, "developers"));
+    q.forEach((developer)=>{
+    if(developer.data().name === selectedDeveloper.name){
+      const washingtonRef = doc(db, "developers", developer.id);
+      updateDoc(washingtonRef, {
+      projects: finalProyectList  
+      });
+  }
+
+})
+}
+
 const addTask= () => {
-  
   let dataTask = {
     TaskName: 'New Added Task', StartDate: new Date()
   };    
-  
   ganttInstance.editModule.addRecord(dataTask, 'Child');
   var id = Math.max(...ganttInstance.ids);
   ganttInstance.editModule.dialogModule.openEditDialog(id);
+  updateGraphicData()
 }
-
-  const toolbarOptions = ['Add', 'Edit', 'Delete', 'Cancel', 'Update', 'Search', 'Indent', 'Outdent'];
-
   return (
     <div>
       <ButtonComponent onClick={addProject.bind(this)}>Add Project</ButtonComponent>
@@ -115,6 +197,7 @@ const addTask= () => {
         editSettings={editOptions}
         taskMode='Auto'
         allowSelection={true}
+        allowRowDragAndDrop={true}
         rowHeight={50}
         labelSettings={labelValues}
         splitterSettings={{position:"40%"}}
@@ -122,7 +205,7 @@ const addTask= () => {
         selectedRowIndex={0}
         ref={gantt => ganttInstance = gantt}
       >
-        <Inject services={[Edit, Toolbar, Selection, Filter]} />
+        <Inject services={[RowDD, Edit, Toolbar, Selection]} />
         <ColumnsDirective>
           <ColumnDirective field="TaskID" headerText="ID" textAlign="Center" />
           <ColumnDirective
@@ -139,7 +222,6 @@ const addTask= () => {
         </ColumnsDirective>
       </GanttComponent>
     </div>
-  );
-};
+  );}
 
-export default Gantt;
+export default GanttDiagram;

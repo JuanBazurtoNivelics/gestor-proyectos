@@ -10,10 +10,9 @@ const UserReducer=  (state,action)=>{
             developers:payload
         }
         case GET_PROFILE:
-
         return{
             ...state,
-            selectedDeveloper:payload 
+            currentProjects:payload 
         }
         default:
             return state

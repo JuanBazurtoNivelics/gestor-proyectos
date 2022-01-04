@@ -2,23 +2,21 @@ import React, { useState,useEffect } from 'react'
 
 import CardMember from '../../components/CardMember/CardMember';
 import Header from '../../components/Header/Header';
-import logo from '../../assets/images/logo.png'
 import './style.css'
-import { collection, getDocs,addDoc } from "firebase/firestore";
+import { collection,addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import FormModal from '../../components/FormModal/FormModal';
 import { useContext } from 'react';
-import userContext from '../../context/userContext';
+import userContext from '../../context/UserContext';
 
 
 
 const DashBoard=()=>{
-    const {developers,getDevelopers} = useContext(userContext)
-
+    const {developers,getDevelopers,getProfile,selectedDeveloper} = useContext(userContext)
     useEffect(() => {
         getDevelopers()
     }, [])
-  
+    console.log(selectedDeveloper)
     const [modalState,setState] = useState();
     const [form,setForm] = useState({})
     const handleChange = e =>{
@@ -36,7 +34,7 @@ const DashBoard=()=>{
                 name:form.Name,
                 phone:parseInt(form.Phone),
                 Area: form.Area,
-                Projects:[]
+                projects:[]
             });
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
@@ -44,6 +42,7 @@ const DashBoard=()=>{
           }
         setState(false)
     }
+    
     return(
     <div className ="dashboard">
         <Header/>
@@ -64,10 +63,9 @@ const DashBoard=()=>{
             </FormModal>
             <div className = "member-list">
             {developers.map((developer,index) =>
-            
             (
                 <CardMember  key = {index} developer = {developer} className = "card">
-                        <h1>{developer.name}</h1>
+            
                     </CardMember>
                  ))}
             </div>

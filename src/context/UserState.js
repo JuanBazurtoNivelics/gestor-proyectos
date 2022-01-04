@@ -1,8 +1,8 @@
 import React from 'react'
-import userContext from './userContext'
+import UserContext from './UserContext'
 
 import UserReducer from './UserReducer'
-import { collection, getDocs,addDoc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useReducer } from 'react';
 
@@ -11,37 +11,48 @@ import { useReducer } from 'react';
 export const UserState = (props) => {
 	const initialState = {
 		developers:[],
-		selectedDeveloper:null
+		selectedDeveloper:null,
+		currentProjects :[]
 	}
 	const[state, dispatch] = useReducer(UserReducer, initialState)
 	
 	const getDevelopers = async ()=>{
 		let developersList = []
+		
 		const developers = await getDocs(collection(db,'developers'))
 		developers.forEach((developer)=>{
 			developersList.push(developer.data())
         })
+
 		dispatch({
 			type:'GET_DEVELOPERS',
 			payload:developersList
 		})
 	}	
-	const getProfile = (developer)=>{
-		 dispatch({
-			 type:'GET_PROFILE',
-			 payload:developer
-		 })
+	const getProfile = async (name)=>{
+		const citiesRef = query(collection(db,'developers'),where("name","==",name))
+		const querySnapshot = await getDocs(citiesRef);
+		let currentDeveloper;
 		
+		querySnapshot.forEach((doc) => {
+			currentDeveloper = doc.data()
+		});
+		let projects = currentDeveloper.projects
+		 	dispatch({
+			 type:'GET_PROFILE',
+			 payload: projects
+		 })	
 	}
 	return (
-		<userContext.Provider value = {
+		<UserContext.Provider value = {
 			{developers:state.developers,
 			selectedDeveloper:state.selectedDeveloper,
+			currentProjects:state.currentProjects,
 			getDevelopers,
-			getProfile}
+			getProfile,}
 		}>
 			{props.children}
-		</userContext.Provider>
+		</UserContext.Provider>
 	)
 }
 export default UserState

@@ -13,8 +13,7 @@ const App =()=>{
         <Routes>
             <Route  path = "/" element = {<Login/>}/>
             <Route  path = "/Dashboard" element ={<DashBoard/>}/>
-            <Route  path = "/Gantt" element ={<Gantt/>}/>
-            <Route  path = "/Gantt/id" element ={<Gantt/>}/>
+            <Route  path = "/Gantt/:id" element ={<Gantt/>}/>
 
         </Routes>
     </UserState>

@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import './style.css'
 import profile  from '../../assets/images/profile.png'
 import { Link} from 'react-router-dom'
-import { useContext,useEffect } from 'react'
-import userContext from '../../context/userContext'
+import UserContext, {getProfile} from '../../context/UserContext'
 export const CardMember = ({developer})=>{
     const profileImage = profile;
-    const {getProfile} = useContext(userContext)
+    const {getProfile,currentProjects} = useContext(UserContext)
     useEffect(() => {
-        getProfile(developer)
-    }, [developer])
-    
+        getProfile(developer.name)
+       
+    }, [])
+    const handleUpdateCurrentProjects= async ()=>{
+        console.log(currentProjects,'Proyectos Card Member')
+    }
     return (
         <div className = "card-member"   >
             <div className = "img" >
@@ -18,10 +20,9 @@ export const CardMember = ({developer})=>{
             </div>
             <div className = "data" >
                 <ul>
-                    <Link to = {`/Gantt`}>
+                    <Link to = {`/Gantt/${developer.name}`} onClick={handleUpdateCurrentProjects}>
                     <li>{developer.name}</li>
-                    <li>{developer.phone}</li>
-                     </Link>
+                    </Link>
 
                 </ul>
             </div>
