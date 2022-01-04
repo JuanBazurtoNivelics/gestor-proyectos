@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import React, { useContext, useEffect } from "react";
-import UserContext from "../../context/UserContext";
+import UserContext from "../../context/userContext";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import {
@@ -19,22 +19,54 @@ import "./Gantt.css";
 import { useParams } from "react-router-dom";
 
 const GanttDiagram = () => {
-  const { currentProjects, selectedDeveloper,getProfile } = useContext(UserContext);
-  const {id} = useParams()
+  const { currentProjects, selectedDeveloper, getProfile, getProjectsByName } =
+    useContext(UserContext);
+  const { id } = useParams();
   useEffect(() => {
     getProfile(id);
-  });
-
-  console.log(currentProjects)
+    getProjectsByName(id);
+  }, []);
 
   let ganttInstance = GanttComponent;
   currentProjects.map((project) => {
-    project.EndDate = new Date(project.EndDate);
-    project.StartDate = new Date(project.StartDate);
+    var EndDate = new Date(project.EndDate.seconds * 1000);
+    project.EndDate = new Date(
+      EndDate.getMonth() +
+        1 +
+        "/" +
+        EndDate.getDate() +
+        "/" +
+        EndDate.getFullYear()
+    );
+    var StartDate = new Date(project.StartDate.seconds * 1000);
+    project.StartDate = new Date(
+      StartDate.getMonth() +
+        1 +
+        "/" +
+        StartDate.getDate() +
+        "/" +
+        StartDate.getFullYear()
+    );
     if (project?.subtasks) {
       project.subtasks.map((task) => {
-        task.EndDate = new Date(task.EndDate);
-        task.StartDate = new Date(task.StartDate);
+        var EndDate = new Date(task.EndDate.seconds * 1000);
+        task.EndDate = new Date(
+          EndDate.getMonth() +
+            1 +
+            "/" +
+            EndDate.getDate() +
+            "/" +
+            EndDate.getFullYear()
+        );
+        var StartDate = new Date(task.StartDate.seconds * 1000);
+        task.StartDate = new Date(
+          StartDate.getMonth() +
+            1 +
+            "/" +
+            StartDate.getDate() +
+            "/" +
+            StartDate.getFullYear()
+        );
       });
     }
   });
@@ -88,7 +120,6 @@ const GanttDiagram = () => {
     const updateData = ganttInstance.selectionModule.parent.flatData;
     let projectList = [];
     let taskList = [];
-    console.log(updateData, "update data");
     updateData.forEach((project) => {
       if (project.parentUniqueID !== null) {
         taskList.push(project);
@@ -100,7 +131,6 @@ const GanttDiagram = () => {
       let taskProject = [];
       taskList.forEach((task) => {
         if (task.parentUniqueID === project.uniqueID) {
-          console.log("par");
           taskProject.push(task.taskData);
         }
       });
@@ -108,6 +138,11 @@ const GanttDiagram = () => {
     });
     const finalProyectList = [];
     projectList.forEach((project) => {
+      if (project.taskData.subtasks.length === 1) {
+        if (Object.keys(project.taskData.subtasks[0]).length === 0) {
+          delete project.taskData.subtasks;
+        }
+      }
       finalProyectList.push(project.taskData);
     });
     const q = await getDocs(collection(db, "developers"));

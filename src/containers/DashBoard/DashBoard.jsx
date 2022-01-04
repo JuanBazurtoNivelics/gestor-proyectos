@@ -6,13 +6,13 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import FormModal from "../../components/FormModal/FormModal";
 import { useContext } from "react";
-import UserContext from "../../context/UserContext";
+import UserContext from "../../context/userContext";
 
 const DashBoard = () => {
   const { developers, getDevelopers } = useContext(UserContext);
   useEffect(() => {
     getDevelopers();
-  });
+  }, []);
   const [modalState, setState] = useState();
   const [form, setForm] = useState({});
   const handleChange = (e) => {

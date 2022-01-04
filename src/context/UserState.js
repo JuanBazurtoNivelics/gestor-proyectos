@@ -1,5 +1,5 @@
 import React from "react";
-import UserContext from "./UserContext";
+import UserContext from "./userContext";
 import UserReducer from "./UserReducer";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase-config";
@@ -26,7 +26,7 @@ export const UserState = (props) => {
       payload: developersList,
     });
   };
-  const getProfile = async (name) => {
+  const getProjectsByName = async (name) => {
     const citiesRef = query(
       collection(db, "developers"),
       where("name", "==", name)
@@ -39,10 +39,28 @@ export const UserState = (props) => {
     });
     let projects = currentDeveloper.projects;
     dispatch({
-      type: "GET_PROFILE",
+      type: "GET_PROJECTS",
       payload: projects,
     });
   };
+
+  const getProfile = async (name) => {
+    const citiesRef = query(
+      collection(db, "developers"),
+      where("name", "==", name)
+    );
+    const querySnapshot = await getDocs(citiesRef);
+    let currentDeveloper;
+
+    querySnapshot.forEach((doc) => {
+      currentDeveloper = doc.data();
+    });
+    dispatch({
+      type: "GET_PROFILE",
+      payload: currentDeveloper,
+    });
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -51,6 +69,7 @@ export const UserState = (props) => {
         currentProjects: state.currentProjects,
         getDevelopers,
         getProfile,
+        getProjectsByName,
       }}
     >
       {props.children}
