@@ -9,9 +9,11 @@ import { useContext } from "react";
 import UserContext from "../../context/userContext";
 
 const DashBoard = () => {
-  const { developers, getDevelopers } = useContext(UserContext);
+  const { developers, getDevelopers,getProfile,getProjectsByName } = useContext(UserContext);
   useEffect(() => {
     getDevelopers();
+    getProfile(null);
+    getProjectsByName('');
   }, []);
   const [modalState, setState] = useState();
   const [form, setForm] = useState({});

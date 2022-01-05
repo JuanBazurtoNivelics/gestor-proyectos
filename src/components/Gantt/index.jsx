@@ -13,21 +13,19 @@ import {
   Selection,
   RowDD,
 } from "@syncfusion/ej2-react-gantt";
-import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
 // import { data } from "./datasource";
 import "./Gantt.css";
-import { useParams } from "react-router-dom";
+import { Link, Router, useParams } from "react-router-dom";
 
 const GanttDiagram = () => {
-  const { currentProjects, selectedDeveloper, getProfile, getProjectsByName } =
-    useContext(UserContext);
+  const { currentProjects, selectedDeveloper, getProfile, getProjectsByName } = useContext(UserContext);
   const { id } = useParams();
+  let ganttInstance = GanttComponent;
   useEffect(() => {
     getProfile(id);
     getProjectsByName(id);
-  }, []);
-
-  let ganttInstance = GanttComponent;
+  },[]);
   currentProjects.map((project) => {
     var EndDate = new Date(project.EndDate.seconds * 1000);
     project.EndDate = new Date(
@@ -70,6 +68,7 @@ const GanttDiagram = () => {
       });
     }
   });
+
 
   const editOptions = {
     allowEditing: true,
@@ -168,6 +167,7 @@ const GanttDiagram = () => {
   };
   return (
     <div>
+      
       <ButtonComponent onClick={addProject.bind(this)}>
         Add Project
       </ButtonComponent>
@@ -206,6 +206,11 @@ const GanttDiagram = () => {
           <ColumnDirective field="Duration" textAlign="Center" />
         </ColumnsDirective>
       </GanttComponent>
+      <Link to={'/Dashboard'}>
+      <button>
+      Regresar</button>
+
+      </Link>
     </div>
   );
 };

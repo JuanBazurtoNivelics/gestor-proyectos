@@ -27,21 +27,31 @@ export const UserState = (props) => {
     });
   };
   const getProjectsByName = async (name) => {
-    const citiesRef = query(
-      collection(db, "developers"),
-      where("name", "==", name)
-    );
-    const querySnapshot = await getDocs(citiesRef);
-    let currentDeveloper;
-
-    querySnapshot.forEach((doc) => {
-      currentDeveloper = doc.data();
-    });
-    let projects = currentDeveloper.projects;
-    dispatch({
-      type: "GET_PROJECTS",
-      payload: projects,
-    });
+    let projects
+    if(name !== ''){
+      const citiesRef = query(
+        collection(db, "developers"),
+        where("name", "==", name)
+      );
+      const querySnapshot = await getDocs(citiesRef);
+      let currentDeveloper;
+  
+      querySnapshot.forEach((doc) => {
+        currentDeveloper = doc.data();
+      });
+       projects= currentDeveloper.projects;
+       
+       dispatch({
+         type: "GET_PROJECTS",
+         payload: projects,
+       });
+      }else{
+        dispatch({
+          type: "GET_PROJECTS",
+          payload: [],
+        });
+    }
+    
   };
 
   const getProfile = async (name) => {
