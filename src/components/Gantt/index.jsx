@@ -113,7 +113,6 @@ const GanttDiagram = () => {
     };
     ganttInstance.editModule.addRecord(dataProject);
     ganttInstance.editModule.dialogModule.openEditDialog();
-    updateGraphicData();
   };
   const updateGraphicData = async () => {
     const updateData = ganttInstance.selectionModule.parent.flatData;
@@ -163,20 +162,9 @@ const GanttDiagram = () => {
     ganttInstance.editModule.addRecord(dataTask, "Child");
     var id = Math.max(...ganttInstance.ids);
     ganttInstance.editModule.dialogModule.openEditDialog(id);
-    updateGraphicData();
   };
 
-  const toolbarClickHandler = (args) => {
-    if (args.item.properties.tooltipText !== "Search") {
-      updateGraphicData();
-    }
-  };
-
-  const rowDropHandler = () => {
-    updateGraphicData();
-  };
-
-  const taskbarEditedHandler = () => {
+  const actionCompleteHandler = () => {
     updateGraphicData();
   };
 
@@ -203,9 +191,7 @@ const GanttDiagram = () => {
         workWeek={workWeek}
         selectedRowIndex={0}
         ref={(gantt) => (ganttInstance = gantt)}
-        toolbarClick={toolbarClickHandler}
-        rowDrop={rowDropHandler}
-        taskbarEdited={taskbarEditedHandler}
+        actionComplete={actionCompleteHandler}
       >
         <Inject services={[Filter, RowDD, Edit, Toolbar, Selection]} />
         <ColumnsDirective>
