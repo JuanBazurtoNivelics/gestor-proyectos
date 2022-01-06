@@ -20,13 +20,14 @@ import "./Gantt.css";
 import { Link, Router, useParams } from "react-router-dom";
 
 const GanttDiagram = () => {
-  const { currentProjects, selectedDeveloper, getProfile, getProjectsByName } = useContext(UserContext);
+  const { currentProjects, selectedDeveloper, getProfile, getProjectsByName } =
+    useContext(UserContext);
   const { id } = useParams();
   let ganttInstance = GanttComponent;
   useEffect(() => {
     getProfile(id);
     getProjectsByName(id);
-  },[]);
+  }, []);
   currentProjects.map((project) => {
     var EndDate = new Date(project.EndDate.seconds * 1000);
     project.EndDate = new Date(
@@ -69,7 +70,6 @@ const GanttDiagram = () => {
       });
     }
   });
-
 
   const editOptions = {
     allowEditing: true,
@@ -168,19 +168,16 @@ const GanttDiagram = () => {
 
   const toolbarClickHandler = (args) => {
     if (args.item.properties.tooltipText !== "Search") {
-      console.log("Changes");
+      updateGraphicData();
     }
   };
 
   const rowDropHandler = () => {
-    console.log('cambio')
     updateGraphicData();
-
   };
 
   const taskbarEditedHandler = () => {
     updateGraphicData();
-
   };
 
   return (
@@ -226,10 +223,8 @@ const GanttDiagram = () => {
           <ColumnDirective field="Duration" textAlign="Center" />
         </ColumnsDirective>
       </GanttComponent>
-      <Link to={'/Dashboard'}>
-      <button>
-      Regresar</button>
-
+      <Link to={"/Dashboard"}>
+        <button>Regresar</button>
       </Link>
     </div>
   );
