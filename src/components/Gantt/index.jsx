@@ -11,10 +11,11 @@ import {
   Inject,
   Toolbar,
   Selection,
+  Filter,
   RowDD,
 } from "@syncfusion/ej2-react-gantt";
-import { Button, ButtonComponent } from "@syncfusion/ej2-react-buttons";
-// import { data } from "./datasource";
+import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
+import { data } from "./datasource";
 import "./Gantt.css";
 import { Link, Router, useParams } from "react-router-dom";
 
@@ -74,7 +75,6 @@ const GanttDiagram = () => {
     allowEditing: true,
     allowAdding: true,
     allowDeleting: true,
-    showDeleteConfirmDialog: true,
     mode: "Auto",
     allowTaskbarEditing: true,
   };
@@ -165,9 +165,26 @@ const GanttDiagram = () => {
     ganttInstance.editModule.dialogModule.openEditDialog(id);
     updateGraphicData();
   };
+
+  const toolbarClickHandler = (args) => {
+    if (args.item.properties.tooltipText !== "Search") {
+      console.log("Changes");
+    }
+  };
+
+  const rowDropHandler = () => {
+    console.log('cambio')
+    updateGraphicData();
+
+  };
+
+  const taskbarEditedHandler = () => {
+    updateGraphicData();
+
+  };
+
   return (
     <div>
-      
       <ButtonComponent onClick={addProject.bind(this)}>
         Add Project
       </ButtonComponent>
@@ -189,8 +206,11 @@ const GanttDiagram = () => {
         workWeek={workWeek}
         selectedRowIndex={0}
         ref={(gantt) => (ganttInstance = gantt)}
+        toolbarClick={toolbarClickHandler}
+        rowDrop={rowDropHandler}
+        taskbarEdited={taskbarEditedHandler}
       >
-        <Inject services={[RowDD, Edit, Toolbar, Selection]} />
+        <Inject services={[Filter, RowDD, Edit, Toolbar, Selection]} />
         <ColumnsDirective>
           <ColumnDirective field="TaskID" headerText="ID" textAlign="Center" />
           <ColumnDirective
