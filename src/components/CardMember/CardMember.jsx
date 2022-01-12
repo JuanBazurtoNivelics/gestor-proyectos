@@ -16,7 +16,7 @@ export const CardMember = ({ developer }) => {
       </div>
       <div className="data">
         <ul>
-          <Link to={`/Gantt/${developer.name}`}>
+          <Link to={`/Gantt/${developer.name}` }className = "Link">
             <li>{developer.name}</li>
           </Link>
         </ul>
