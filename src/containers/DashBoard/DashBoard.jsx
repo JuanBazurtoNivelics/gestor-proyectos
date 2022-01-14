@@ -9,12 +9,18 @@ import { useContext } from "react";
 import UserContext from "../../context/userContext";
 
 const DashBoard = () => {
-  const { developers, getDevelopers,getProfile,getProjectsByName } = useContext(UserContext);
+  const { developers, getDevelopers, getProfile, getProjectsByName } =
+    useContext(UserContext);
   useEffect(() => {
     getDevelopers();
     getProfile(null);
+<<<<<<< HEAD
     getProjectsByName('');
   }, [developers]);
+=======
+    getProjectsByName("");
+  }, []);
+>>>>>>> 072fa2a793ea030100a3a118f2218770de87f2bd
   const [modalState, setState] = useState();
   const [form, setForm] = useState({});
   const handleChange = (e) => {
@@ -48,6 +54,7 @@ const DashBoard = () => {
       <FormModal modalState={modalState} setState={setState}>
         <form onSubmit={handleSubmit}>
           <input
+            className="dashboard-input"
             type="email"
             name="Email"
             placeholder="Email"
@@ -55,6 +62,7 @@ const DashBoard = () => {
             onChange={handleChange}
           />
           <input
+            className="dashboard-input"
             type="text"
             name="Name"
             placeholder="Name"
@@ -62,6 +70,7 @@ const DashBoard = () => {
             onChange={handleChange}
           />
           <input
+            className="dashboard-input"
             type="number"
             name="Phone"
             placeholder="Telefono"
@@ -69,6 +78,7 @@ const DashBoard = () => {
             onChange={handleChange}
           />
           <input
+            className="dashboard-input"
             type="text"
             name="Post"
             placeholder="Cargo"
@@ -76,6 +86,7 @@ const DashBoard = () => {
             onChange={handleChange}
           />
           <input
+            className="dashboard-input"
             type="text"
             name="Area"
             placeholder="Area"
@@ -94,7 +105,7 @@ const DashBoard = () => {
           ></CardMember>
         ))}
       </div>
-      <div className="logo">
+      <div className="dashboard-logo">
         <div className="button">
           <button type="button" onClick={() => setState(true)}>
             +
