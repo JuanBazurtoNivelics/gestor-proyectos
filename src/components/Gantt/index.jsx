@@ -15,7 +15,6 @@ import {
   RowDD,
 } from "@syncfusion/ej2-react-gantt";
 import { ButtonComponent } from "@syncfusion/ej2-react-buttons";
-import { data } from "./datasource";
 import "./Gantt.css";
 import { Link, Router, useParams } from "react-router-dom";
 
@@ -174,6 +173,9 @@ const GanttDiagram = () => {
         Add Project
       </ButtonComponent>
       <ButtonComponent onClick={addTask.bind(this)}>Add Task</ButtonComponent>
+      <Link to={"/Dashboard"} className="gantt-back-button">
+        <button>Regresar</button>
+      </Link>
       <GanttComponent
         dataSource={currentProjects}
         taskFields={taskValues}
@@ -209,9 +211,6 @@ const GanttDiagram = () => {
           <ColumnDirective field="Duration" textAlign="Center" />
         </ColumnsDirective>
       </GanttComponent>
-      <Link to={"/Dashboard"}>
-        <button>Regresar</button>
-      </Link>
     </div>
   );
 };
