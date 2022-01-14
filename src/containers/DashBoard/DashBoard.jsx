@@ -14,7 +14,7 @@ const DashBoard = () => {
     getDevelopers();
     getProfile(null);
     getProjectsByName('');
-  }, []);
+  }, [developers]);
   const [modalState, setState] = useState();
   const [form, setForm] = useState({});
   const handleChange = (e) => {
